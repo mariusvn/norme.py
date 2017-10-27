@@ -59,23 +59,15 @@ class norme:
         if (self.nb_line == 1):
             if (self.line[:2] != '/*'):
                 self.print_error('header incorrect')
-        elif (self.nb_line == 9):
+        elif (self.nb_line == 6):
             if (self.line[:2] != '*/'):
                 self.print_error('header incorrect')
-        elif self.nb_line == 4 or self.nb_line == 7 or self.nb_line == 8:
-            if self.cheat:
-                p = re.compile('([\w-]* [\w-]*)$')
-                test = re.search(p, self.line)
-                if test:
-                    if not test.group(1) in self.user:
-                        self.print_error('login '+ test.group(1) +' incorrect')
-        elif (self.nb_line == 5):
-            if self.cheat:
-                p = re.compile('<(.*)@')
-                test = re.search(p, self.line)
-                if test:
-                    if not test.group(1) in self.user:
-                        self.print_error('login '+ test.group(1) +' incorrect')
+        elif (self.nb_line == 2):
+            if (self.line != '** EPITECH PROJECT, 2017\n'):
+                self.print_error('header incorrect')
+        elif (self.nb_line == 4):
+            if (self.line != '** File description:\n'):
+                self.print_error('header incorrect')
         else:
             if (self.line[:2] != '**'):
                 self.print_error('header incorrect')
@@ -247,7 +239,7 @@ class norme:
                         self.cant_open(file)
                     else:
                         for self.line in fd.readlines():
-                            if self.nb_line <= 9:
+                            if self.nb_line <= 6:
                                 self.check_header()
                             else:
                                 self.check_line()
