@@ -75,7 +75,7 @@ class norme:
     def check_virgule(self):
         n = 0
         quote = 0
-        while self.line[n] != '\n':
+        while len(self.line) > n and self.line[n] != '\n':
             if self.line[n] == '\'' or self.line[n] == '"':
                 if quote:
                     quote = 0
@@ -162,12 +162,11 @@ class norme:
     def check_operateur(self, op):
         n = 0
         quote = 0
-        while self.line[n] != '\n':
-            if self.line[n] == '\'' or self.line[n] == '"':
-                if quote:
-                    quote = 0
-                else:
-                    quote = 1
+        while len(self.line) > n and self.line[n] == '"':
+            if quote:
+                quote = 0
+            else:
+                quote = 1
             if (self.line[n] == op) and quote == 0:
                 if self.line[n + 1] != ' ' and self.line[n + 1] != ';' and self.line[n + 1] != '=':
                     if self.line[n - 1] != op and self.line[n + 1] != op:
@@ -332,6 +331,7 @@ def main():
     try:
         moulin.scandir(sys.argv[1])
     except NameError:
+        print "Erreur"
         print "Usage: norme.py <dir_to_scan>"
     if moulin.score:
         print "Vous avez fait",moulin.note,"fautes de norme"
